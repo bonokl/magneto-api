@@ -1,6 +1,6 @@
 ### 1. Setup
 
-Create a Python virtual environment with Python 3.11:
+Create a Python virtual environment with Python 3.12:
 ```shell
 mkvirtualenv -p python3.12 magneto
 ```
