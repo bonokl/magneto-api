@@ -1,6 +1,8 @@
-import pytest
 
+import pytest
 from fastapi.testclient import TestClient
+from sqlalchemy.orm import Session
+from sqlalchemy import text
 from testcontainers.postgres import PostgresContainer
 
 from src import variables
@@ -18,8 +20,8 @@ def initialize_database():
 
 
 def initialize_services():
-    from src.arena_hub.arena_hub import ArenaHub
-    ArenaHub.initialize()
+    from src.magneto.magneto import Magneto
+    Magneto.initialize()
 
 
 def initialize_api():
@@ -37,9 +39,13 @@ class BaseTest:
 
     @pytest.fixture(scope="function")
     def database_cleanup(self):
-        from src.database.models.app import App
         from src.database.database import Database
         yield
+        db: Session
         with Database.create_db_session() as db:
-            db.query(App).delete()
+            db.execute(text(
+                """
+                
+                """
+            ))
             db.commit()

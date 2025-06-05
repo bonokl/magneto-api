@@ -1,7 +1,10 @@
+
+from typing import Optional, Tuple, List
+
 from src.database.models.design import Design as DbDesign
+from src.database.models.sensor import Sensor as DbSensor
 from src.entities.design import Design, CreateDesign, UpdateDesign
 from src.database.database import Database
-from typing import Optional, Tuple, List
 
 class DesignRepository:
     def get(self, design_id: int) -> Design | None:
@@ -57,6 +60,7 @@ class DesignRepository:
                 elif hasattr(db_design, key):
                     setattr(db_design, key, value)
             db.commit()
+            return Design.model_validate(db_design)
 
     def delete(self, design_id: int) -> bool:
         with Database.create_db_session() as db:
