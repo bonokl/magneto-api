@@ -1,0 +1,21 @@
+services:
+  magneto-api:
+    image: "magneto-api:latest"
+    build:
+      dockerfile: Dockerfile.development
+      context: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    volumes:
+      - .:/usr/src/app
+
+  postgres:
+    image: postgres:14.9
+    environment:
+      - POSTGRES_DB=magneto
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
