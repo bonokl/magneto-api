@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 from http import HTTPStatus
 from typing import Callable
 
-from fastapi import APIRouter, Depends, FastAPI, status
+from fastapi import APIRouter, FastAPI, status
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import HTTPException, RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
@@ -12,8 +12,9 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 
 from src import variables
-from src.api.healthcheck import healthcheck
+from src.api import simulation_api
 from src.api.docs import get_redoc_documentation, get_swagger_documentation, openapi
+from src.api.healthcheck import healthcheck
 from src.logger import logger
 
 
@@ -93,17 +94,17 @@ class API:
 
         cls._add_docs_routes()
 
+        ########################
+        # Simulation
+        ########################
+        cls._add_route("/simulate", simulation_api.start_simulation, ["POST"], tags=["Simulation"],
+                       response_model=dict)
 
         cls.app.include_router(cls._router)
 
     @classmethod
-    def _add_route(cls, path: str, func: Callable, methods: list[str], roles: set[str] = None,
-                   check_api_key: bool = False, tags: list[str] = None, **kwargs):
-        if roles:
-            cls._router.add_api_route(path, func, methods=methods, tags=tags, **kwargs)
-
-        if check_api_key:
-            cls._router.add_api_route(path, func, methods=methods, tags=tags, **kwargs)
+    def _add_route(cls, path: str, func: Callable, methods: list[str], tags: list[str] = None, **kwargs):
+        cls._router.add_api_route(path, func, methods=methods, tags=tags, **kwargs)
 
     @classmethod
     def _add_docs_routes(cls):
@@ -129,4 +130,3 @@ class LogRequestsMiddleware(BaseHTTPMiddleware):
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     yield
-

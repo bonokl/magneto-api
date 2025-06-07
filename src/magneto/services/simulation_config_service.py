@@ -93,5 +93,39 @@ class SimulationConfigService(SimulationConfigInterface):
             B = magpy.getB(magnet, sensor)
             B_fields.append(B.tolist())
 
-        result["B_fields"] = B_fields
+        # Prepare output in required structure
+        # Map function_id to function name (for demo, hardcoded)
+        function_map = {
+            1: "Rotation",
+            2: "Linear",
+            3: "Joystick",
+            4: "Hinge",
+            5: "Static Position"
+        }
+        function_name = function_map.get(sim_req.function_id, str(sim_req.function_id))
+        result = {
+            "magnet_animation": {
+                "function": function_name,
+                # Add more animation data as needed
+            },
+            "graphs": {
+                "data": {
+                    -1: {
+                        "magnet_field_distance_graph": {
+                            "plots": [
+                                {"B_field": B_fields, "label": "B-field at sensors"}
+                            ],
+                            "metadata": {
+                                "unit": "T",
+                                "description": "Magnetic field at sensor positions"
+                            }
+                        }
+                    }
+                },
+                "metadata": {
+                    "simulation": "Magneto",
+                    "sensors": len(magpy_sensors)
+                }
+            }
+        }
         return result

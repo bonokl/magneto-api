@@ -86,3 +86,46 @@ class SimulationStartRequest(BaseModel):
     sim_setting: SimSetting
     temperature: float
     temperature_coefficient: float
+
+
+class MagnetAnimation(BaseModel):
+    function: str
+    # Add more animation fields as needed
+
+
+class MagnetFieldDistanceGraphMetadata(BaseModel):
+    unit: str
+    description: str
+
+
+class MagnetFieldDistanceGraphPlot(BaseModel):
+    B_field: list
+    label: str
+
+
+class MagnetFieldDistanceGraph(BaseModel):
+    plots: list[MagnetFieldDistanceGraphPlot]
+    metadata: MagnetFieldDistanceGraphMetadata
+
+
+class GraphsDataEntry(BaseModel):
+    magnet_field_distance_graph: MagnetFieldDistanceGraph
+
+
+class GraphsData(BaseModel):
+    __root__: dict[int, GraphsDataEntry]
+
+
+class GraphsMetadata(BaseModel):
+    simulation: str
+    sensors: int
+
+
+class Graphs(BaseModel):
+    data: dict[int, GraphsDataEntry]
+    metadata: GraphsMetadata
+
+
+class SimulationResult(BaseModel):
+    magnet_animation: MagnetAnimation
+    graphs: Graphs
