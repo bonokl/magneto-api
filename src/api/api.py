@@ -129,3 +129,4 @@ class LogRequestsMiddleware(BaseHTTPMiddleware):
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     yield
+
