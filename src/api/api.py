@@ -12,10 +12,12 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 
 from src import variables
-from src.api import functions_api
+from src.api import functions_api, magnets_api
 from src.api.docs import get_redoc_documentation, get_swagger_documentation, openapi
 from src.api.healthcheck import healthcheck
 from src.entities.function import Function
+from src.entities.magnet import Magnet
+from src.entities.pagination import Paginated
 from src.logger import logger
 
 
@@ -99,10 +101,17 @@ class API:
         # Functions
         ########################
         cls._add_route("/functions", functions_api.get_all_functions, ["GET"], tags=["Functions"],
-                       response_model=list[Function])
-
+                       response_model=Paginated[Function])
         cls._add_route("/functions/{function_id:str}", functions_api.get_function, ["GET"], tags=["Functions"],
                        response_model=Function)
+
+        ########################
+        # Magnets
+        ########################
+        cls._add_route("/magnets", magnets_api.get_all_magnets, ["GET"], tags=["Magnets"],
+                       response_model=Paginated[Magnet])
+        cls._add_route("/magnets/{magnet_id:str}", magnets_api.get_magnet, ["GET"], tags=["Magnets"],
+                       response_model=Magnet)
 
         cls.app.include_router(cls._router)
 

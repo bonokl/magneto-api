@@ -1,18 +1,29 @@
-from datetime import datetime
-from typing import Any, Dict, Optional
+from enum import Enum
+from typing import Optional
 
 from pydantic import BaseModel
 
 
+class MagnetShape(str, Enum):
+    BAR = "bar"
+
+
+class MagnetGeometry(BaseModel):
+    magnet_length_x_dim: Optional[float] = None
+    magnet_length_y_dim: Optional[float] = None
+    magnet_length_z_dim: Optional[float] = None
+    outer_diameter: Optional[float] = None
+    inner_diameter: Optional[float] = None
+    height: Optional[float] = None
+    diameter: Optional[float] = None
+
+
 class Magnet(BaseModel):
     id: int
-    shape: str
+    shape: MagnetShape
     multipole: bool
-    magnet_geometry_default: Dict[str, Any]
+    magnet_geometry_default: MagnetGeometry
     description: Optional[str]
-    magnet_image: str
-    created_at: Optional[datetime]
-    updated_at: Optional[datetime]
 
     class Config:
         from_attributes = True
@@ -27,13 +38,3 @@ class MagnetSpecification(BaseModel):
     temperature: float
     temperature_coefficient: float
     coercivity: float
-
-
-class MagnetGeometry(BaseModel):
-    magnet_length_x_dim: Optional[float] = None
-    magnet_length_y_dim: Optional[float] = None
-    magnet_length_z_dim: Optional[float] = None
-    outer_diameter: Optional[float] = None
-    inner_diameter: Optional[float] = None
-    height: Optional[float] = None
-    diameter: Optional[float] = None

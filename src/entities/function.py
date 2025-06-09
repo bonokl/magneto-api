@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 
 
 class FunctionType(str, Enum):
-    static = "static"
+    STATIC = "static"
 
 
 class Function(BaseModel):

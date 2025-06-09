@@ -4,7 +4,7 @@ functions = [
     Function(
         id=5,
         name="Static Position",
-        function_type=FunctionType.static,
+        function_type=FunctionType.STATIC,
     )
 ]
 
