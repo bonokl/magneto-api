@@ -1,5 +1,7 @@
+from typing import Any, Dict, Optional
+
 from pydantic import BaseModel, Field
-from typing import Optional, Dict, Any
+
 
 class Function(BaseModel):
     id: int
@@ -11,4 +13,4 @@ class Function(BaseModel):
     function_image: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True

@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, RootModel
 
 from src.entities.magnet import MagnetGeometry
 from src.entities.sensor import SensorPosition
@@ -49,7 +49,7 @@ class SimulationConfig(BaseModel):
     updated_at: Optional[datetime]
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class CreateSimulationConfig(BaseModel):
@@ -112,8 +112,8 @@ class GraphsDataEntry(BaseModel):
     magnet_field_distance_graph: MagnetFieldDistanceGraph
 
 
-class GraphsData(BaseModel):
-    __root__: dict[int, GraphsDataEntry]
+class GraphsData(RootModel[dict[int, GraphsDataEntry]]):
+    pass
 
 
 class GraphsMetadata(BaseModel):

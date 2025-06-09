@@ -51,4 +51,4 @@ class Sensor(BaseModel):
     position: Optional[SensorPosition] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
