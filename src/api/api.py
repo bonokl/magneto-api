@@ -12,9 +12,10 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 
 from src import variables
-from src.api import simulation_api
+from src.api import functions_api
 from src.api.docs import get_redoc_documentation, get_swagger_documentation, openapi
 from src.api.healthcheck import healthcheck
+from src.entities.function import Function
 from src.logger import logger
 
 
@@ -95,10 +96,13 @@ class API:
         cls._add_docs_routes()
 
         ########################
-        # Simulation
+        # Functions
         ########################
-        cls._add_route("/simulate", simulation_api.start_simulation, ["POST"], tags=["Simulation"],
-                       response_model=dict)
+        cls._add_route("/functions", functions_api.get_all_functions, ["GET"], tags=["Functions"],
+                       response_model=list[Function])
+
+        cls._add_route("/functions/{function_id:str}", functions_api.get_function, ["GET"], tags=["Functions"],
+                       response_model=Function)
 
         cls.app.include_router(cls._router)
 

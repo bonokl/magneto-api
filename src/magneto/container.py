@@ -1,9 +1,11 @@
 from src.magneto.interfaces.design_interface import DesignInterface
+from src.magneto.interfaces.function_interface import FunctionInterface
 from src.magneto.interfaces.magnet_interface import MagnetInterface
 from src.magneto.interfaces.sensor_interface import SensorInterface
 from src.magneto.interfaces.simulation_config_interface import SimulationConfigInterface
 
-manget: MagnetInterface
-sensor: SensorInterface
-design: DesignInterface
-simulation: SimulationConfigInterface
+functions: FunctionInterface
+magnets: MagnetInterface
+sensors: SensorInterface
+designs: DesignInterface
+simulations: SimulationConfigInterface
