@@ -27,9 +27,6 @@ class SensorPosition(BaseModel):
     x_position: Optional[float] = None
     y_position: Optional[float] = None
     z_position: Optional[float] = None
-    x_angle: Optional[float] = None
-    y_angle: Optional[float] = None
-    z_angle: Optional[float] = None
 
 
 class SimSetting(BaseModel):

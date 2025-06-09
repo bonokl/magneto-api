@@ -12,7 +12,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 
 from src import variables
-from src.api import design_api, functions_api, magnet_materials_api, magnets_api
+from src.api import design_api, functions_api, magnet_materials_api, magnets_api, simulations_api
 from src.api.docs import get_redoc_documentation, get_swagger_documentation, openapi
 from src.api.healthcheck import healthcheck
 from src.entities.design import Design
@@ -137,6 +137,13 @@ class API:
         cls._add_route("/designs/{design_id:int}", design_api.update_design, ["PUT"], tags=["Designs"],
                        response_model=Design)
         cls._add_route("/designs/{design_id:int}", design_api.delete_design, ["DELETE"], tags=["Designs"])
+
+        ########################
+        # Designs
+        ########################
+        cls._add_route("/simulations/{design_id:int}/simulate", simulations_api.simulate, ["POST"],
+                       tags=["Simulations"],
+                       response_model=list)
 
         cls.app.include_router(cls._router)
 

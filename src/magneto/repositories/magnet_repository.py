@@ -8,9 +8,9 @@ magnets: List[Magnet] = [
         shape=MagnetShape.BAR,
         multipole=True,
         magnet_geometry_default=MagnetGeometry(
-            magnet_length_x_dim=4,
-            magnet_length_y_dim=4,
-            magnet_length_z_dim=4
+            magnet_length_x=40,
+            magnet_length_y=40,
+            magnet_length_z=40
         ),
         description=""
     )

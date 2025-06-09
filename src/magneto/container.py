@@ -3,9 +3,11 @@ from src.magneto.interfaces.function_interface import FunctionInterface
 from src.magneto.interfaces.magnet_interface import MagnetInterface
 from src.magneto.interfaces.magnet_materials_interface import MagnetMaterialsInterface
 from src.magneto.interfaces.sensor_interface import SensorInterface
+from src.magneto.interfaces.simulation_interface import SimulationInterface
 
 functions: FunctionInterface
 magnets: MagnetInterface
 magnet_materials: MagnetMaterialsInterface
 sensors: SensorInterface
 designs: DesignInterface
+simulations: SimulationInterface

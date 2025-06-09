@@ -9,9 +9,9 @@ class MagnetShape(str, Enum):
 
 
 class MagnetGeometry(BaseModel):
-    magnet_length_x_dim: Optional[float] = None
-    magnet_length_y_dim: Optional[float] = None
-    magnet_length_z_dim: Optional[float] = None
+    magnet_length_x: Optional[float] = None
+    magnet_length_y: Optional[float] = None
+    magnet_length_z: Optional[float] = None
     outer_diameter: Optional[float] = None
     inner_diameter: Optional[float] = None
     height: Optional[float] = None
