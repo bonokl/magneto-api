@@ -1,9 +1,11 @@
 import magpylib as magpy
+import numpy as np
 from scipy.constants import mu_0
 from scipy.spatial.transform import Rotation as R
 
 from src.entities.design import Design
 from src.entities.magnet import MagnetShape
+from src.entities.simulation import SimulationResult
 from src.magneto.interfaces.simulation_interface import SimulationInterface
 from src.magneto.repositories.design_repository import DesignRepository
 from src.magneto.repositories.magnet_repository import MagnetRepository
@@ -15,15 +17,23 @@ class SimulationService(SimulationInterface):
         self._design_repository = design_repository
         self._magnet_repository = magnet_repository
 
-    def simulate(self, design_id: int) -> dict:
+    def simulate(self, design_id: int) -> SimulationResult:
         design = self._design_repository.get(design_id)
         magnet = self._create_magnet(design)
         sensor = self._create_sensor(design)
 
         points = [sensor.position]  # in SI Units (m)
         B = magpy.getB(magnet, points)
+        magnitude = self._calculate_magnitude(B)
 
-        return B
+        result = SimulationResult(
+            b_x=[float(B[0])],
+            b_y=[float(B[1])],
+            b_z=[float(B[2])],
+            magnitude=magnitude
+        )
+
+        return result
 
     def _create_magnet(self, design: Design):
         magnet = self._magnet_repository.get(design.magnet_id)
@@ -63,3 +73,6 @@ class SimulationService(SimulationInterface):
         Br_effective = design.remanence * (1 + temp_coeff * (design.temperature - T_ref))
         M = Br_effective / mu_0
         return [0.0, 0.0, M]
+
+    def _calculate_magnitude(self, b: list[float]) -> float:
+        return float(np.linalg.norm(b))
