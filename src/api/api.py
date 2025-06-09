@@ -12,11 +12,12 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 
 from src import variables
-from src.api import functions_api, magnets_api
+from src.api import functions_api, magnet_materials_api, magnets_api
 from src.api.docs import get_redoc_documentation, get_swagger_documentation, openapi
 from src.api.healthcheck import healthcheck
 from src.entities.function import Function
 from src.entities.magnet import Magnet
+from src.entities.magnet_material import MagnetMaterial, MaterialGrade
 from src.entities.pagination import Paginated
 from src.logger import logger
 
@@ -112,6 +113,16 @@ class API:
                        response_model=Paginated[Magnet])
         cls._add_route("/magnets/{magnet_id:str}", magnets_api.get_magnet, ["GET"], tags=["Magnets"],
                        response_model=Magnet)
+
+        ########################
+        # Magnet Materials
+        ########################
+        cls._add_route("/magnet-materials", magnet_materials_api.get_all_magnet_materials, ["GET"],
+                       tags=["MagnetMaterials"],
+                       response_model=Paginated[MagnetMaterial])
+        cls._add_route("/magnet-materials/{material_id:int}/grades", magnet_materials_api.get_all_material_grades,
+                       ["GET"], tags=["MagnetMaterials"],
+                       response_model=Paginated[MaterialGrade])
 
         cls.app.include_router(cls._router)
 
