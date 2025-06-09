@@ -69,7 +69,7 @@ class Design(BaseModel):
     sensor: list[Sensor] = []
 
 
-class CreateDesign(Design):
+class CreateDesign(BaseModel):
     design_name: Optional[str] = None
     magnet_id: int
     poles: int
