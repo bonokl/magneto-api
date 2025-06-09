@@ -1,3 +1,5 @@
+from fastapi import HTTPException, status
+
 from src.entities.function import Function
 from src.entities.pagination import Metadata, Paginated
 from src.magneto import container
@@ -11,4 +13,8 @@ async def get_all_functions() -> Paginated[Function]:
 
 
 async def get_function(function_id: int) -> Function:
-    return container.functions.get_function(function_id)
+    function = container.functions.get_function(function_id)
+    if function is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="not found")
+
+    return function

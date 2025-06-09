@@ -6,7 +6,6 @@ def initialize_database():
     Database.initialize()
 
 
-
 def initialize_magneto_component():
     from src.magneto.magneto import Magneto
     Magneto.initialize()
@@ -17,7 +16,7 @@ def initialize_api() -> FastAPI:
     return API.initialize()
 
 
-initialize_database()
+# initialize_database()
 initialize_magneto_component()
 app = initialize_api()
 

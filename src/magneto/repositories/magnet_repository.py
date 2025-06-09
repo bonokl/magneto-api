@@ -12,7 +12,7 @@ magnets: List[Magnet] = [
             magnet_length_y_dim=4,
             magnet_length_z_dim=4
         ),
-        description="Commonly used in:\n Laptop lid closure\n Limit detection"
+        description=""
     )
 ]
 
