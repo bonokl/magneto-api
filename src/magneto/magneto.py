@@ -22,8 +22,6 @@ class Magneto:
         magnet_materials_repository = MagnetMaterialRepository()
         container.magnet_materials = MagnetMaterialsService(magnet_materials_repository)
 
-        # design_repository = DesignRepository()
-        # container.designs = DesignService(design_repository)
         #
         # simulation_config_repository = SimulationConfigRepository()
         # container.simulation_configs = SimulationConfigService(simulation_config_repository)
