@@ -27,14 +27,3 @@ class Magnet(BaseModel):
 
     class Config:
         from_attributes = True
-
-
-class MagnetSpecification(BaseModel):
-    poles: int
-    material_id: int
-    grade_id: int
-    select_remanence: str
-    remanence: float
-    temperature: float
-    temperature_coefficient: float
-    coercivity: float

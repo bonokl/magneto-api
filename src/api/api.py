@@ -12,9 +12,10 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 
 from src import variables
-from src.api import functions_api, magnet_materials_api, magnets_api
+from src.api import design_api, functions_api, magnet_materials_api, magnets_api
 from src.api.docs import get_redoc_documentation, get_swagger_documentation, openapi
 from src.api.healthcheck import healthcheck
+from src.entities.design import Design
 from src.entities.function import Function
 from src.entities.magnet import Magnet
 from src.entities.magnet_material import MagnetMaterial, MaterialGrade
@@ -123,6 +124,19 @@ class API:
         cls._add_route("/magnet-materials/{material_id:int}/grades", magnet_materials_api.get_all_material_grades,
                        ["GET"], tags=["MagnetMaterials"],
                        response_model=Paginated[MaterialGrade])
+
+        ########################
+        # Designs
+        ########################
+        cls._add_route("/designs", design_api.get_all_designs, ["GET"], tags=["Designs"],
+                       response_model=Paginated[Design])
+        cls._add_route("/designs/{design_id:int}", design_api.get_design, ["GET"], tags=["Designs"],
+                       response_model=Design)
+        cls._add_route("/designs", design_api.create_design, ["POST"], tags=["Designs"],
+                       response_model=Design)
+        cls._add_route("/designs/{design_id:int}", design_api.update_design, ["PUT"], tags=["Designs"],
+                       response_model=Design)
+        cls._add_route("/designs/{design_id:int}", design_api.delete_design, ["DELETE"], tags=["Designs"])
 
         cls.app.include_router(cls._router)
 

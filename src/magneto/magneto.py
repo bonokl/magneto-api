@@ -1,7 +1,9 @@
 from src.magneto import container
+from src.magneto.repositories.design_repository import DesignRepository
 from src.magneto.repositories.function_repository import FunctionRepository
 from src.magneto.repositories.magnet_material_repository import MagnetMaterialRepository
 from src.magneto.repositories.magnet_repository import MagnetRepository
+from src.magneto.services.design_service import DesignService
 from src.magneto.services.function_service import FunctionService
 from src.magneto.services.magnet_materials_service import MagnetMaterialsService
 from src.magneto.services.magnet_service import MagnetService
@@ -22,6 +24,8 @@ class Magneto:
         magnet_materials_repository = MagnetMaterialRepository()
         container.magnet_materials = MagnetMaterialsService(magnet_materials_repository)
 
+        design_repository = DesignRepository()
+        container.designs = DesignService(design_repository)
         #
         # simulation_config_repository = SimulationConfigRepository()
         # container.simulation_configs = SimulationConfigService(simulation_config_repository)
