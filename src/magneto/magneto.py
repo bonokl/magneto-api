@@ -26,6 +26,3 @@ class Magneto:
 
         design_repository = DesignRepository()
         container.designs = DesignService(design_repository)
-        #
-        # simulation_config_repository = SimulationConfigRepository()
-        # container.simulation_configs = SimulationConfigService(simulation_config_repository)
