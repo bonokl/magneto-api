@@ -26,6 +26,7 @@ from src.logger import logger
 class API:
     app: FastAPI
     _origins: list = [
+        "*",
         "http://localhost",
         "http://localhost:8080",
     ]

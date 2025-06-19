@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Dict, List, Optional
 
 from src.entities.design import CreateDesign, Design, MagnetAngle, MagnetMovement, MagnetPosition, RemanenceType, \
@@ -34,8 +35,8 @@ default_design = Design(
     ),
     magnet_movement=MagnetMovement(),
     sim_setting=SimSetting(),
-    date_created="string",
-    last_modified="string",
+    date_created=datetime.now(),
+    last_modified=datetime.now(),
     sensor=[]
 )
 

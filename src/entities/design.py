@@ -1,3 +1,4 @@
+from datetime import datetime
 from enum import Enum
 from typing import Optional
 
@@ -61,8 +62,8 @@ class Design(BaseModel):
     magnet_angle: MagnetAngle
     magnet_movement: Optional[MagnetMovement] = None
     sim_setting: Optional[SimSetting] = None
-    date_created: Optional[str] = None
-    last_modified: Optional[str] = None
+    date_created: Optional[datetime] = None
+    last_modified: Optional[datetime] = None
     sensor: list[Sensor] = []
 
 
@@ -83,6 +84,6 @@ class CreateDesign(BaseModel):
     magnet_angle: MagnetAngle
     magnet_movement: Optional[MagnetMovement] = None
     sim_setting: Optional[SimSetting] = None
-    date_created: Optional[str] = None
-    last_modified: Optional[str] = None
+    date_created: Optional[datetime] = None
+    last_modified: Optional[datetime] = None
     sensor: list[Sensor] = []
